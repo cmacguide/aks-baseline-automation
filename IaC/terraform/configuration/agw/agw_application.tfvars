@@ -20,7 +20,7 @@ application_gateway_applications_v1 = {
         http_listener_key = "public_ssl"
         backend_pool_key  = "backend_pool_1"
         http_settings_key = "http_setting_1"
-        priority          = 100
+        priority          = 123
       }
     }
 

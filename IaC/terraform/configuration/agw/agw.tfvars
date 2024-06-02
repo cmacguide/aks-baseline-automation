@@ -61,14 +61,14 @@ application_gateway_platforms = {
       }
     }
 
-    diagnostic_profiles = {
-      operations = {
-        name             = "agw_logs"
-        definition_key   = "azure_application_gateway"
-        destination_type = "log_analytics"
-        destination_key  = "central_logs"
-      }
-    }
+    # diagnostic_profiles = {
+    #   operations = {
+    #     name             = "agw_logs"
+    #     definition_key   = "azure_application_gateway"
+    #     destination_type = "log_analytics"
+    #     destination_key  = "central_logs"
+    #   }
+    # }
 
     #default: wont be able to change after creation as this is required for agw tf resource
     default = {
@@ -82,6 +82,7 @@ application_gateway_platforms = {
       listener_name                 = "default-httplstn"
       request_routing_rule_name     = "default-rqrt"
       rule_type                     = "Basic"
+      priority                      = 320
     }
 
     listener_ssl_policy = {

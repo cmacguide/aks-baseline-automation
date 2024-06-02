@@ -3,14 +3,14 @@ azure_container_registries = {
     name               = "acr-re1-001"
     resource_group_key = "aks_re1"
     sku                = "Premium"
-    diagnostic_profiles = {
-      operations = {
-        name             = "acr_logs"
-        definition_key   = "azure_container_registry"
-        destination_type = "log_analytics"
-        destination_key  = "central_logs"
-      }
-    }
+    # diagnostic_profiles = {
+    #   operations = {
+    #     name             = "acr_logs"
+    #     definition_key   = "azure_container_registry"
+    #     destination_type = "log_analytics"
+    #     destination_key  = "central_logs"
+    #   }
+    # }
     # georeplication_region_keys = ["region2"]
 
     network_rule_set = {

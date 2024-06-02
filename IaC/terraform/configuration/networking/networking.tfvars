@@ -15,6 +15,10 @@ vnets = {
         name = "AzureFirewallSubnet" #Must be called AzureFirewallSubnet
         cidr = ["10.200.0.0/26"]
       }
+      AzureFirewallManagementSubnet = {
+        name = "AzureFirewallManagementSubnet" #Must be called AzureFirewallManagementSubnet
+        cidr = ["10.200.0.128/26"]
+      }
     }
     subnets = {
       AzureBastionSubnet = {

@@ -68,9 +68,9 @@ roleRef:
   kind: ClusterRole
   name: traefik-ingress-controller
 subjects:
-- kind: ServiceAccount
-  name: traefik-ingress-controller
-  namespace: a0008
+  - kind: ServiceAccount
+    name: traefik-ingress-controller
+    namespace: a0008
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -170,9 +170,9 @@ spec:
     app.kubernetes.io/name: traefik-ingress-ilb
     app.kubernetes.io/instance: traefik-ingress-ilb
   ports:
-  - port: 443
-    name: https
-    targetPort: websecure
+    - port: 443
+      name: https
+      targetPort: websecure
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -224,63 +224,63 @@ spec:
         # az acr import --source docker.io/library/traefik:2.2.1 -n <your-acr-instance-name>
         # and then set this to
         # image: <your-acr-instance-name>.azurecr.io/library/traefik:2.2.1
-      - image: docker.io/library/traefik:2.2.1
-        name: traefik-ingress-controller
-        resources:
-          requests:
-            cpu: 100m
-            memory: 64Mi
-          limits:
-            cpu: 200m
-            memory: 128Mi
-        readinessProbe:
-          httpGet:
-            path: /ping
-            port: "traefik"
-          failureThreshold: 1
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 2
-        livenessProbe:
-          httpGet:
-            path: /ping
-            port: "traefik"
-          failureThreshold: 3
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 2
-        ports:
-        - name: "traefik"
-          containerPort: 9000
-          protocol: TCP
-        - name: "websecure"
-          containerPort: 8443
-          protocol: TCP
-        - name: "metrics"
-          containerPort: 8082
-          protocol: TCP
-        securityContext:
-          capabilities:
-            drop:
-            - ALL
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-          runAsGroup: 65532
-          runAsNonRoot: true
-          runAsUser: 65532
-        volumeMounts:
-          - name: data
-            mountPath: /data
-          - name: config
-            mountPath: /config
-            readOnly: true
-          - name: ssl-csi
-            mountPath: /certs
-            readOnly: true
-        args:
-        - --configfile=/config/traefik.toml
+        - image: docker.io/library/traefik:2.2.1
+          name: traefik-ingress-controller
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: "traefik"
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: "traefik"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          ports:
+            - name: "traefik"
+              containerPort: 9000
+              protocol: TCP
+            - name: "websecure"
+              containerPort: 8443
+              protocol: TCP
+            - name: "metrics"
+              containerPort: 8082
+              protocol: TCP
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 65532
+            runAsNonRoot: true
+            runAsUser: 65532
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: config
+              mountPath: /config
+              readOnly: true
+            - name: ssl-csi
+              mountPath: /certs
+              readOnly: true
+          args:
+            - --configfile=/config/traefik.toml
       volumes:
         - name: config
           configMap:
@@ -294,4 +294,4 @@ spec:
         - name: data
           emptyDir: {}
       nodeSelector:
-       agentpool: npuser01
+        agentpool: npuser01

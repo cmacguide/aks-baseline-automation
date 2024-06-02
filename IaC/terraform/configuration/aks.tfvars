@@ -4,27 +4,27 @@ aks_clusters = {
     resource_group_key = "aks_re1"
     os_type            = "Linux"
 
-    diagnostic_profiles = {
-      operations = {
-        name             = "aksoperations"
-        definition_key   = "azure_kubernetes_cluster"
-        destination_type = "log_analytics"
-        destination_key  = "central_logs"
-      }
-    }
+    # diagnostic_profiles = {
+    #   operations = {
+    #     name             = "aksoperations"
+    #     definition_key   = "azure_kubernetes_cluster"
+    #     destination_type = "log_analytics"
+    #     destination_key  = "central_logs"
+    #   }
+    # }
 
     identity = {
       type = "SystemAssigned"
     }
 
 
-    kubernetes_version = "1.23.8"
+    kubernetes_version = "1.28.9"
     vnet_key           = "vnet_aks_re1"
 
     # network plugin and network policy should be "azure" (recommended by Secure AKS baseline)
     network_profile = {
       network_plugin    = "azure"
-      load_balancer_sku = "Standard"
+      load_balancer_sku = "standard"
       outbound_type     = "userDefinedRouting"
     }
 
@@ -39,7 +39,7 @@ aks_clusters = {
       }
     }
 
-    sku_tier = "Paid"
+    sku_tier = "Free"
 
     addon_profile = {
       oms_agent = {

@@ -12,3 +12,4 @@ variable "managed_identities" {
 }
 
 variable "aad_pod_identity" {}
+variable "aks_clusters" {}

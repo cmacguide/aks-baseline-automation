@@ -6,13 +6,12 @@ locals {
       region = v.region
     }
   }
-
   global_settings = length(var.regions) == 0 ? var.global_settings : {
     default_region = "region1"
     regions        = { for region in var.regions : "region${index(var.regions, region) + 1}" => region }
     passthrough    = true
+    # random_length  = 4
   }
-
   role_mapping_aks_clusters = {
     aks_clusters = {
       cluster_re1 = {
@@ -38,5 +37,4 @@ locals {
   role_mapping = {
     built_in_role_mapping = local.partial_role_mapping_merged
   }
-
 }
